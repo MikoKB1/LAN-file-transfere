@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LAN File Transfer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="card">
+    <h1>LAN File Transfer</h1>
+
+    <div id="drop-zone">
+        <p>Drag & drop files here</p>
+        <span>or</span>
+        <label class="file-btn">
+            Select Files
+            <input type="file" id="file-input" multiple hidden>
+        </label>
+    </div>
+
+    <div id="file-list"></div>
+
+    <button id="upload-btn" disabled>Upload</button>
+
+    <p id="status"></p>
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
