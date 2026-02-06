@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- CRITICAL for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>LAN File Transfer</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -9,11 +13,11 @@
 
 <h1>LAN File Transfer</h1>
 
-<section class="card">
-    <h2>Upload to Host</h2>
+<section class="card upload-card">
+    <h2>Upload</h2>
 
     <form id="uploadForm">
-        <input type="file" name="files" id="fileInput" multiple required>
+        <input type="file" name="files" id="fileInput" multiple>
 
         <div class="progress-container hidden">
             <div class="progress-bar" id="progressBar"></div>
@@ -21,12 +25,15 @@
 
         <p class="progress-text" id="progressText"></p>
 
-        <button type="submit">Upload</button>
+        <button type="submit" class="primary-btn">
+            Upload files
+        </button>
     </form>
 </section>
 
 <section class="card">
-    <h2>Files on Host</h2>
+    <h2>Files</h2>
+
     <ul class="file-list">
         {% for file in files %}
         <li class="file-item">
@@ -47,7 +54,7 @@
             </div>
         </li>
         {% else %}
-        <li class="file-item empty">No files available</li>
+        <li class="file-item empty">No files</li>
         {% endfor %}
     </ul>
 </section>
