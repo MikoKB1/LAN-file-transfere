@@ -19,12 +19,6 @@ This project is intentionally lightweight and framework-free on the frontend.
 
 ---
 
-## 🖼 Screenshots
-
-_(Optional — add screenshots here later)_
-
----
-
 ## 🧠 How It Works
 
 - The **host machine** runs a Flask server
