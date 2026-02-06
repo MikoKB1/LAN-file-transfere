@@ -1,31 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>LAN File Transfer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<div class="card">
-    <h1>LAN File Transfer</h1>
+<h1>LAN File Transfer</h1>
 
-    <div id="drop-zone">
-        <p>Drag & drop files here</p>
-        <span>or</span>
-        <label class="file-btn">
-            Select Files
-            <input type="file" id="file-input" multiple hidden>
-        </label>
-    </div>
+<section class="card">
+    <h2>Upload to Host</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="files" multiple>
+        <button type="submit">Upload</button>
+    </form>
+</section>
 
-    <div id="file-list"></div>
+<section class="card">
+    <h2>Download from Host</h2>
+    <ul>
+        {% for file in files %}
+            <li>
+                {{ file }}
+                <a href="/download/{{ file }}">Download</a>
+            </li>
+        {% else %}
+            <li>No files available</li>
+        {% endfor %}
+    </ul>
+</section>
 
-    <button id="upload-btn" disabled>Upload</button>
-
-    <p id="status"></p>
-</div>
-
-<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="/static/app.js"></script>
 </body>
 </html>
