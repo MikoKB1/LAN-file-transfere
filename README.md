@@ -37,4 +37,4 @@ No database, no authentication, no cloud — just local networking.
 
 ```bash
 git clone https://github.com/MikoKB1/LAN-file-transfere
-cd lan-file-transfer
+cd LAN-file-transfere
