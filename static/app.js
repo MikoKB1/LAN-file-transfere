@@ -1,71 +1,43 @@
-const dropZone = document.getElementById("drop-zone");
-const fileInput = document.getElementById("file-input");
-const fileList = document.getElementById("file-list");
-const uploadBtn = document.getElementById("upload-btn");
-const statusText = document.getElementById("status");
+const form = document.getElementById("uploadForm");
+const fileInput = document.getElementById("fileInput");
+const progressBar = document.getElementById("progressBar");
+const progressContainer = document.querySelector(".progress-container");
+const progressText = document.getElementById("progressText");
 
-let files = [];
-
-dropZone.onclick = () => fileInput.click();
-
-fileInput.onchange = () => addFiles(fileInput.files);
-
-dropZone.ondragover = e => {
+form.addEventListener("submit", (e) => {
     e.preventDefault();
-    dropZone.classList.add("drag");
-};
 
-dropZone.ondragleave = () => dropZone.classList.remove("drag");
+    if (!fileInput.files.length) return;
 
-dropZone.ondrop = e => {
-    e.preventDefault();
-    dropZone.classList.remove("drag");
-    addFiles(e.dataTransfer.files);
-};
-
-function addFiles(newFiles) {
-    for (const file of newFiles) {
-        files.push(file);
+    const data = new FormData();
+    for (const file of fileInput.files) {
+        data.append("files", file);
     }
-    renderList();
-    uploadBtn.disabled = files.length === 0;
-}
 
-function renderList() {
-    fileList.innerHTML = "";
-    files.forEach((file, i) => {
-        const div = document.createElement("div");
-        div.className = "file-item";
-        div.innerHTML = `
-            <div>${file.name}</div>
-            <div class="progress">
-                <div class="bar" id="bar-${i}"></div>
-            </div>
-        `;
-        fileList.appendChild(div);
-    });
-}
-
-uploadBtn.onclick = () => {
     const xhr = new XMLHttpRequest();
-    const formData = new FormData();
+    xhr.open("POST", "/", true);
 
-    files.forEach(f => formData.append("files", f));
+    progressContainer.classList.remove("hidden");
+    progressBar.style.width = "0%";
+    progressText.textContent = "Uploading...";
 
-    xhr.upload.onprogress = e => {
+    xhr.upload.onprogress = (e) => {
         if (e.lengthComputable) {
-            const percent = (e.loaded / e.total) * 100;
-            document.querySelectorAll(".bar").forEach(bar => {
-                bar.style.width = percent + "%";
-            });
+            const percent = Math.round((e.loaded / e.total) * 100);
+            progressBar.style.width = percent + "%";
+            progressText.textContent = `Uploading… ${percent}%`;
         }
     };
 
     xhr.onload = () => {
-        statusText.textContent = "Upload complete";
-        uploadBtn.disabled = true;
+        if (xhr.status === 200) {
+            progressBar.style.width = "100%";
+            progressText.textContent = "Upload complete ✅";
+            setTimeout(() => location.reload(), 800);
+        } else {
+            progressText.textContent = "Upload failed ❌";
+        }
     };
 
-    xhr.open("POST", "/");
-    xhr.send(formData);
-};
+    xhr.send(data);
+});

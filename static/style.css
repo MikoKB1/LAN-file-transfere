@@ -1,41 +1,114 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
+    font-family: system-ui, sans-serif;
+    background: linear-gradient(135deg, #020617, #0f172a);
     color: #e5e7eb;
     padding: 30px;
 }
 
 h1 {
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .card {
     background: #020617;
     padding: 20px;
     margin: 20px auto;
-    max-width: 600px;
-    border-radius: 10px;
+    max-width: 700px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+input[type="file"] {
+    margin-bottom: 15px;
+    color: #e5e7eb;
 }
 
 button {
-    padding: 10px 20px;
-    background: #2563eb;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #2563eb, #38bdf8);
     border: none;
+    border-radius: 10px;
     color: white;
+    font-weight: bold;
     cursor: pointer;
-    border-radius: 6px;
 }
 
-button:hover {
-    background: #1d4ed8;
+/* Progress bar */
+.progress-container {
+    width: 100%;
+    height: 14px;
+    background: #020617;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 10px 0;
 }
 
-a {
-    color: #38bdf8;
-    margin-left: 10px;
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(135deg, #22c55e, #4ade80);
+    transition: width 0.2s ease;
+}
+
+.progress-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* File list */
+.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    margin: 10px 0;
+    background: #020617;
+    border-radius: 10px;
+}
+
+.file-item.empty {
+    justify-content: center;
+    opacity: 0.6;
+}
+
+.file-name {
+    max-width: 55%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.download-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
+    color: white;
+    font-weight: bold;
+    border-radius: 999px;
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
+.delete-btn {
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    border: none;
+    border-radius: 999px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>LAN File Transfer</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -10,22 +11,43 @@
 
 <section class="card">
     <h2>Upload to Host</h2>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="files" multiple>
+
+    <form id="uploadForm">
+        <input type="file" name="files" id="fileInput" multiple required>
+
+        <div class="progress-container hidden">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <p class="progress-text" id="progressText"></p>
+
         <button type="submit">Upload</button>
     </form>
 </section>
 
 <section class="card">
-    <h2>Download from Host</h2>
-    <ul>
+    <h2>Files on Host</h2>
+    <ul class="file-list">
         {% for file in files %}
-            <li>
-                {{ file }}
-                <a href="/download/{{ file }}">Download</a>
-            </li>
+        <li class="file-item">
+            <span class="file-name">{{ file }}</span>
+
+            <div class="actions">
+                <a class="download-btn" href="/download/{{ file }}">
+                    ⬇ Download
+                </a>
+
+                <form method="POST"
+                      action="/delete/{{ file }}"
+                      onsubmit="return confirm('Delete {{ file }} ?');">
+                    <button type="submit" class="delete-btn">
+                        🗑 Delete
+                    </button>
+                </form>
+            </div>
+        </li>
         {% else %}
-            <li>No files available</li>
+        <li class="file-item empty">No files available</li>
         {% endfor %}
     </ul>
 </section>
